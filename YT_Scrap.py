@@ -7,7 +7,7 @@ import csv
 import datetime
 from datetime import datetime
 option = webdriver.ChromeOptions()
-option.headless = True
+option.headless = False
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=option)
 Links=[]
 driver.get('https://www.youtube.com/aashiqui2/videos')
@@ -61,7 +61,7 @@ for link in Song_link:
     Song=link.get('href')
     Song='https://www.youtube.com'+Song
     driver.get(Song)
-    time.sleep(15)
+    time.sleep(5)
     content1 = driver.page_source
     soup1 = BeautifulSoup(content1,'lxml')
     div = soup1.find('div' , attrs={'class':'style-scope ytd-video-primary-info-renderer'})
@@ -107,10 +107,12 @@ for link in Song_link:
         if count>=1 and count<3:
             if i!="|":
                 singer=singer+i
-    #singer="Billie Eilish"
+    #singer="Alanwalker"
     if itntity_count==0:
         with open('Song.csv','a',newline='', encoding='utf-8') as fd:
             writer = csv.writer(fd)
             writer.writerow([title ,singer , views , Upload_date ,likes , Song_t[timecount],Song])
         fd.close()
+        print(title," " ,singer ," ", views ," ", Upload_date ," ",likes ," ", Song_t[timecount]," ",Song)
     timecount+=1
+    
